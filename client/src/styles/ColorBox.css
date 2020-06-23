@@ -2,7 +2,7 @@
   width: 20%;
   height: 25%;
   margin: 0 auto;
-  display: inline-block;
+  display: block;
   position: relative;
   cursor: pointer;
 }
@@ -39,7 +39,7 @@
 
 .box-content {
   position: absolute;
-  width: 100%;
+
   left: 0px;
   bottom: 0px;
   padding: 10px;

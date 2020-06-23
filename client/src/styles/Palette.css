@@ -3,4 +3,8 @@
 }
 .Palette-colors {
   height: 90%;
+  width: 100%;
+  background: green;
+  display: flex;
+  flex-wrap: wrap;
 }
