@@ -63,6 +63,14 @@
   line-height: 30px;
   text-transform: uppercase;
   text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.see-more .btn {
+  color: white;
+  margin-left: -1px;
+  margin-top: -2px;
 }
 
 .copy-overlay {

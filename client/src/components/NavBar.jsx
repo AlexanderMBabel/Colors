@@ -114,21 +114,23 @@ class NavBar extends Component {
           <div className='logo'>
             <Link to='/'>ReactColorPicker</Link>
           </div>
-          <div className='slider-container'>
-            <p className='level-container'>
-              <span className='level-label'>level:</span>
-              <span className='level'>{this.props.level}</span>
-            </p>
-            <PrettoSlider
-              className='slider'
-              value={this.props.level}
-              min={100}
-              max={900}
-              step={100}
-              onChange={this.props.changeLevel}
-              aria-label='Level Slider'
-            />
-          </div>
+          {this.props.type === 'palette' && (
+            <div className='slider-container'>
+              <p className='level-container'>
+                <span className='level-label'>level:</span>
+                <span className='level'>{this.props.level}</span>
+              </p>
+              <PrettoSlider
+                className='slider'
+                value={this.props.level}
+                min={100}
+                max={900}
+                step={100}
+                onChange={this.props.changeLevel}
+                aria-label='Level Slider'
+              />
+            </div>
+          )}
         </div>
         <div className='right-side'>
           <Select value={this.state.format} onChange={this.handleChange}>
