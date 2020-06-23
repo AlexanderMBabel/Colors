@@ -24,6 +24,7 @@ class Palette extends Component {
     return (
       <div className='Palette'>
         <Slider
+          className='slider'
           defaultValue={this.state.level}
           min={100}
           max={900}
