@@ -5,8 +5,10 @@ const useStyles = createUseStyles({
   footer: {
     display: 'flex',
     justifyContent: 'flex-end',
+    alignItems: 'center',
     '& p': {
       paddingRight: 10,
+      fontSize: 14,
     },
   },
 });
