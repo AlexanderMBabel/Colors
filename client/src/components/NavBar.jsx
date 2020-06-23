@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -111,7 +112,7 @@ class NavBar extends Component {
         />
         <div className='left-side'>
           <div className='logo'>
-            <a href='#'>ReactColorPicker</a>
+            <Link to='/'>ReactColorPicker</Link>
           </div>
           <div className='slider-container'>
             <p className='level-container'>
