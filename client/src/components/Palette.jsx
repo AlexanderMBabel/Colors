@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ColorBox from './ColorBox';
-import { generatePalette } from '../utils/colorHelpers';
+
 import '../styles/Palette.css';
 
 class Palette extends Component {

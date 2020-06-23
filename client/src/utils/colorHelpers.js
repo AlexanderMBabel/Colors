@@ -32,22 +32,24 @@ export function generatePalette(starterPalette) {
   let newPalette = {
     paletteName: starterPalette.paletteName,
     id: starterPalette.id,
-    emojij: starterPalette.emojij,
+    emoji: starterPalette.emoji,
     colors: {},
   };
   for (let level of levels) {
     newPalette.colors[level] = [];
   }
   for (let color of starterPalette.colors) {
-    let scale = getScale(color.color, 100).reverse();
+    let scale = generateScale(color.color, 10).reverse();
+
     for (let i in scale) {
-      newPalette.colors[level[i]].push({
+      newPalette.colors[levels[i]].push({
         name: `${color.name} ${levels[i]}`,
         id: color.name.toLowerCase().replace(/ /g, '-'),
         rgb: chroma(scale[i]).css(),
       });
     }
   }
+  return newPalette;
 }
 
 function getRange(hexColor) {
@@ -56,5 +58,5 @@ function getRange(hexColor) {
 }
 
 function generateScale(hexColor, numberOfColors) {
-  chroma.scale(getRange(hexColor)).mode('lab').colors(numberOfColors);
+  return chroma.scale(getRange(hexColor)).mode('lab').colors(numberOfColors);
 }
