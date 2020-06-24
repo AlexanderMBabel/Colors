@@ -39,6 +39,7 @@ class App extends Component {
                   this.findPalette(routeProps.match.params.id)
                 )}
                 color={routeProps.match.params.color}
+                history={routeProps.history}
               />
             )}
           />

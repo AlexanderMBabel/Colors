@@ -46,7 +46,7 @@ class SingleColorPalette extends Component {
     return colorArray;
   };
   render() {
-    const { palette, color, classes } = this.props;
+    const { palette, color, classes, history } = this.props;
     const { paletteName, emoji } = palette;
     const colors = this.createColorLevel(color, palette.colors);
 
@@ -64,9 +64,11 @@ class SingleColorPalette extends Component {
               single
             />
           ))}
-          <div style={{ width: '25%', height: '50%' }}>
-            <Button>Back</Button>
-          </div>
+          <ColorBox background='white'>
+            <Button variant='outlined' onClick={history.goBack}>
+              Go Back
+            </Button>
+          </ColorBox>
         </div>
         <Footer paletteName={paletteName} emoji={emoji} />
       </div>

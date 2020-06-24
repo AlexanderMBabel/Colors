@@ -9,7 +9,8 @@
 }
 
 .logo {
-  font-family: 'Marko One';
+  font-family: 'Poppins';
+  font-size: 18px;
   background: rgb(49, 49, 49);
   padding: 10px;
   display: flex;
