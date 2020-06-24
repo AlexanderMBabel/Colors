@@ -2,15 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
-
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import '../styles/NavBar.css';
-
 import Snackbar from '@material-ui/core/Snackbar';
-
-import { CloseOutlined } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
+import { CloseOutlined } from '@material-ui/icons';
 import styles from '../styles/NavBar.styles';
 
 /** create a custom Slider component with styles */
