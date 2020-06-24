@@ -64,7 +64,7 @@ class SingleColorPalette extends Component {
               single
             />
           ))}
-          <ColorBox background='white'>
+          <ColorBox background='white' back>
             <Button variant='outlined' onClick={history.goBack}>
               Go Back
             </Button>
