@@ -2,35 +2,18 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
-import Tooltip from '@material-ui/core/Tooltip';
+
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import '../styles/NavBar.css';
-import PropTypes from 'prop-types';
+
 import Snackbar from '@material-ui/core/Snackbar';
 
 import { CloseOutlined } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
+import styles from '../styles/NavBar.styles';
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     width: 300 + theme.spacing(3) * 2,
-//   },
-//   margin: {
-//     height: theme.spacing(3),
-//   },
-// }));
-
-function ValueLabelComponent(props) {
-  const { children, open, value } = props;
-
-  return (
-    <Tooltip open={open} enterTouchDelay={0} placement='top' title={value}>
-      {children}
-    </Tooltip>
-  );
-}
-
+/** create a custom Slider component with styles */
 const PrettoSlider = withStyles({
   root: {
     color: '#52af77',
@@ -61,12 +44,6 @@ const PrettoSlider = withStyles({
   },
 })(Slider);
 
-ValueLabelComponent.propTypes = {
-  children: PropTypes.element.isRequired,
-  open: PropTypes.bool.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
 class NavBar extends Component {
   constructor(props) {
     super(props);
@@ -89,8 +66,9 @@ class NavBar extends Component {
     });
   };
   render() {
+    const { classes } = this.props;
     return (
-      <nav className='NavBar'>
+      <nav className={classes.NavBar}>
         <Snackbar
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           open={this.state.open}
@@ -110,18 +88,18 @@ class NavBar extends Component {
             </IconButton>
           }
         />
-        <div className='left-side'>
-          <div className='logo'>
+        <div className={classes.leftSide}>
+          <div className={classes.logo}>
             <Link to='/'>ReactColorPicker</Link>
           </div>
           {this.props.type === 'palette' && (
-            <div className='slider-container'>
-              <p className='level-container'>
+            <div className={classes.sliderContainer}>
+              <p className={classes.levelContainer}>
                 <span className='level-label'>level:</span>
-                <span className='level'>{this.props.level}</span>
+                <span className={classes.level}>{this.props.level}</span>
               </p>
               <PrettoSlider
-                className='slider'
+                className={classes.slider}
                 value={this.props.level}
                 min={100}
                 max={900}
@@ -132,7 +110,7 @@ class NavBar extends Component {
             </div>
           )}
         </div>
-        <div className='right-side'>
+        <div className={classes.rightSide}>
           <Select value={this.state.format} onChange={this.handleChange}>
             <MenuItem value='hex'>Hex - #ffffff</MenuItem>
             <MenuItem value='rgb'>RGB - rgb(255,255,255)</MenuItem>
@@ -143,4 +121,4 @@ class NavBar extends Component {
     );
   }
 }
-export default NavBar;
+export default withStyles(styles)(NavBar);

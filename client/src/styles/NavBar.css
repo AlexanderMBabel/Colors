@@ -1,14 +1,14 @@
-.NavBar {
+/* .NavBar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
+} */
 
-.left-side {
+/* .left-side {
   display: flex;
-}
+} */
 
-.logo {
+/* .logo {
   font-family: 'Poppins';
   font-size: 18px;
   background: rgb(49, 49, 49);
@@ -22,25 +22,14 @@
   padding: 0 10px;
   font-weight: bold;
   font-size: 18px;
-}
-.slider-container {
-  padding: 10px;
+} */
 
-  display: flex;
-  align-items: center;
-  width: 350px;
-}
-.slider {
-  width: 340px;
-  margin: 0 10px;
-  display: inline-block;
-}
-.level-container {
+/* .level-container {
   display: flex;
   align-items: center;
   font-family: 'Poppins';
-}
-.level {
+} */
+/* .level {
   font-size: 14px;
   padding-left: 4px;
 }
@@ -48,4 +37,4 @@
 }
 .right-side {
   margin-right: 1rem;
-}
+} */
