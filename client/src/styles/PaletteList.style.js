@@ -9,6 +9,7 @@ export default {
     background: 'url(Tumbleweed.jpg)',
     backgroundSize: '100%',
     backgroundAttachment: 'fixed',
+    backgroundRepeat: 'no-repeat',
   },
 
   palettes: {
