@@ -13,7 +13,8 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Button from '@material-ui/core/Button';
 import { fontColorHelper } from '../utils/fontColorHelper';
-
+import { randomColor } from '../utils/randomColor';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { ChromePicker } from 'react-color';
 import NewColorBox from './NewColorBox';
 
@@ -106,6 +107,13 @@ const useStyles = (theme) => ({
     alignItems: '',
     justifyContent: 'flex-start',
   },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
 });
 
 class NewPaletteForm extends Component {
@@ -114,6 +122,7 @@ class NewPaletteForm extends Component {
     this.state = {
       open: true,
       pickedColor: '#ffffff',
+      colorName: '',
       palette: [],
     };
   }
@@ -127,9 +136,36 @@ class NewPaletteForm extends Component {
     this.setState({ pickedColor: color.hex });
   };
   addToPalette = () => {
+    const newColor = {
+      color: this.state.pickedColor,
+      name: this.state.colorName,
+    };
     this.setState((prevState) => ({
-      palette: [...prevState.palette, prevState.pickedColor],
+      palette: [...prevState.palette, newColor],
     }));
+  };
+  pickRandomColor = () => {
+    this.setState({
+      pickedColor: randomColor(),
+    });
+  };
+  clearPalette = () => {
+    this.setState({
+      palette: [],
+    });
+  };
+  handleNameChange = (e) => {
+    this.setState({
+      colorName: e.target.value,
+    });
+  };
+  removeFromPalette = (color) => {
+    let palette = [...this.state.palette];
+    let index = palette.findIndex((colorInfo) => colorInfo.color === color);
+    palette.pop(index);
+    this.setState({
+      palette,
+    });
   };
   render() {
     const { classes, theme } = this.props;
@@ -185,6 +221,7 @@ class NewPaletteForm extends Component {
             <h3>Design Your Palette</h3>
             <div className={classes.buttonContainer}>
               <Button
+                onClick={this.clearPalette}
                 size='small'
                 variant='outlined'
                 color='primary'
@@ -192,6 +229,7 @@ class NewPaletteForm extends Component {
                 Clear
               </Button>
               <Button
+                onClick={this.pickRandomColor}
                 size='small'
                 variant='outlined'
                 color='secondary'
@@ -203,17 +241,23 @@ class NewPaletteForm extends Component {
               color={this.state.pickedColor}
               onChangeComplete={this.handleColorPick}
             />
-            <Button
-              onClick={this.addToPalette}
-              variant='contained'
-              color='primary'
-              style={{
-                backgroundColor: this.state.pickedColor,
-                color: fontColorHelper(this.state.pickedColor),
-                marginTop: 20,
-              }}>
-              Add Color
-            </Button>
+            <ValidatorForm className={classes.form}>
+              <TextValidator
+                value={this.state.colorName}
+                onChange={this.handleNameChange}
+              />
+              <Button
+                onClick={this.addToPalette}
+                variant='contained'
+                color='primary'
+                style={{
+                  backgroundColor: this.state.pickedColor,
+                  color: fontColorHelper(this.state.pickedColor),
+                  marginTop: 10,
+                }}>
+                Add Color
+              </Button>
+            </ValidatorForm>
           </div>
         </Drawer>
         <main
@@ -223,7 +267,11 @@ class NewPaletteForm extends Component {
           <div className={classes.drawerHeader} />
           <div className={classes.colors}>
             {this.state.palette.map((color, index) => (
-              <NewColorBox color={color} key={color} />
+              <NewColorBox
+                color={color}
+                key={color}
+                remove={this.removeFromPalette}
+              />
             ))}
           </div>
         </main>
