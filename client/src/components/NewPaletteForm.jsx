@@ -126,6 +126,27 @@ class NewPaletteForm extends Component {
       palette: [],
     };
   }
+
+  componentDidMount() {
+    ValidatorForm.addValidationRule('isNameUnique', (value) => {
+      let index = this.state.palette.findIndex(
+        (paletteColor) => paletteColor.name === value
+      );
+      if (index === -1) {
+        return true;
+      }
+      return false;
+    });
+    ValidatorForm.addValidationRule('isColorUnique', (value) => {
+      let index = this.state.palette.findIndex(
+        (paletteColor) => paletteColor.color === this.state.pickedColor
+      );
+      if (index === -1) {
+        return true;
+      }
+      return false;
+    });
+  }
   handleDrawerOpen = () => {
     this.setState({ open: true });
   };
@@ -241,13 +262,21 @@ class NewPaletteForm extends Component {
               color={this.state.pickedColor}
               onChangeComplete={this.handleColorPick}
             />
-            <ValidatorForm className={classes.form}>
+            <ValidatorForm
+              className={classes.form}
+              onSubmit={this.addToPalette}>
               <TextValidator
                 value={this.state.colorName}
                 onChange={this.handleNameChange}
+                validators={['required', 'isNameUnique', 'isColorUnique']}
+                errorMessages={[
+                  'Color name required',
+                  'Color Name is already in palette',
+                  'Color is already in palette',
+                ]}
               />
               <Button
-                onClick={this.addToPalette}
+                type='submit'
                 variant='contained'
                 color='primary'
                 style={{
