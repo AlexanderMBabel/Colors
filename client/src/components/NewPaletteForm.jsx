@@ -17,7 +17,7 @@ import { fontColorHelper } from '../utils/fontColorHelper';
 import { ChromePicker } from 'react-color';
 import NewColorBox from './NewColorBox';
 
-const drawerWidth = 240;
+const drawerWidth = 290;
 
 const useStyles = (theme) => ({
   root: {
@@ -67,6 +67,20 @@ const useStyles = (theme) => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
+  },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: 20,
+  },
+  btn: {
+    margin: 10,
+  },
+  drawerContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   content: {
     flexGrow: 1,
@@ -167,29 +181,40 @@ class NewPaletteForm extends Component {
             </IconButton>
           </div>
           <Divider />
-          <h3>Design Your Palette</h3>
-          <div>
-            <Button variant='contained' color='primary'>
-              Clear Palette
-            </Button>
-            <Button variant='contained' color='secondary'>
-              Random Color
+          <div className={classes.drawerContent}>
+            <h3>Design Your Palette</h3>
+            <div className={classes.buttonContainer}>
+              <Button
+                size='small'
+                variant='outlined'
+                color='primary'
+                className={classes.btn}>
+                Clear
+              </Button>
+              <Button
+                size='small'
+                variant='outlined'
+                color='secondary'
+                className={classes.btn}>
+                Random
+              </Button>
+            </div>
+            <ChromePicker
+              color={this.state.pickedColor}
+              onChangeComplete={this.handleColorPick}
+            />
+            <Button
+              onClick={this.addToPalette}
+              variant='contained'
+              color='primary'
+              style={{
+                backgroundColor: this.state.pickedColor,
+                color: fontColorHelper(this.state.pickedColor),
+                marginTop: 20,
+              }}>
+              Add Color
             </Button>
           </div>
-          <ChromePicker
-            color={this.state.pickedColor}
-            onChangeComplete={this.handleColorPick}
-          />
-          <Button
-            onClick={this.addToPalette}
-            variant='contained'
-            color='primary'
-            style={{
-              backgroundColor: this.state.pickedColor,
-              color: fontColorHelper(this.state.pickedColor),
-            }}>
-            Add Color
-          </Button>
         </Drawer>
         <main
           className={clsx(classes.content, {

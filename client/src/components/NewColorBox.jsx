@@ -6,7 +6,7 @@ const styles = {
   colorBox: {
     background: (props) => props.color,
     width: '20%',
-
+    height: '25%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
