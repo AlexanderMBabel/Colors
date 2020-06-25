@@ -12,8 +12,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Button from '@material-ui/core/Button';
+import { fontColorHelper } from '../utils/fontColorHelper';
 
 import { ChromePicker } from 'react-color';
+import NewColorBox from './NewColorBox';
 
 const drawerWidth = 240;
 
@@ -60,7 +62,7 @@ const useStyles = (theme) => ({
   },
   drawerHeader: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'start',
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
@@ -82,6 +84,14 @@ const useStyles = (theme) => ({
     }),
     marginLeft: 0,
   },
+  colors: {
+    width: '100%',
+    height: '80vh',
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: '',
+    justifyContent: 'flex-start',
+  },
 });
 
 class NewPaletteForm extends Component {
@@ -90,6 +100,7 @@ class NewPaletteForm extends Component {
     this.state = {
       open: true,
       pickedColor: '#ffffff',
+      palette: [],
     };
   }
   handleDrawerOpen = () => {
@@ -100,6 +111,11 @@ class NewPaletteForm extends Component {
   };
   handleColorPick = (color) => {
     this.setState({ pickedColor: color.hex });
+  };
+  addToPalette = () => {
+    this.setState((prevState) => ({
+      palette: [...prevState.palette, prevState.pickedColor],
+    }));
   };
   render() {
     const { classes, theme } = this.props;
@@ -164,7 +180,14 @@ class NewPaletteForm extends Component {
             color={this.state.pickedColor}
             onChangeComplete={this.handleColorPick}
           />
-          <Button variant='outlined' color='primary'>
+          <Button
+            onClick={this.addToPalette}
+            variant='contained'
+            color='primary'
+            style={{
+              backgroundColor: this.state.pickedColor,
+              color: fontColorHelper(this.state.pickedColor),
+            }}>
             Add Color
           </Button>
         </Drawer>
@@ -173,6 +196,11 @@ class NewPaletteForm extends Component {
             [classes.contentShift]: open,
           })}>
           <div className={classes.drawerHeader} />
+          <div className={classes.colors}>
+            {this.state.palette.map((color, index) => (
+              <NewColorBox color={color} key={color} />
+            ))}
+          </div>
         </main>
       </div>
     );

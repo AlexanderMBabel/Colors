@@ -1,10 +1,4 @@
-import chroma from 'chroma-js';
-
-/** choose the font color based on the background color */
-const chooseColorFromLum = (color) => {
-  let lumi = chroma(color).luminance();
-  return lumi >= 0.1 ? '#333333' : 'white';
-};
+import { fontColorHelper } from '../utils/fontColorHelper';
 
 export default {
   container: {
@@ -22,7 +16,7 @@ export default {
     },
   },
   name: {
-    color: (props) => chooseColorFromLum(props.background),
+    color: (props) => fontColorHelper(props.background),
   },
   copyBtn: {
     width: 100,
@@ -54,7 +48,7 @@ export default {
     fontSize: 14,
   },
   seeBtn: {
-    color: (props) => chooseColorFromLum(props.background),
+    color: (props) => fontColorHelper(props.background),
     marginLeft: -1,
     marginTop: -2,
   },
