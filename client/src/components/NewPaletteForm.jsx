@@ -19,114 +19,9 @@ import { ChromePicker } from 'react-color';
 import NewColorBox from './NewColorBox';
 import AddPaletteDialog from './AddPaletteDialog';
 import { Link } from 'react-router-dom';
+import useStyles from '../styles/AddPaletteForm.styles.js';
 
-const drawerWidth = 290;
-
-const useStyles = (theme) => ({
-  root: {
-    display: 'flex',
-  },
-  appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    background: 'rgba(255,250,250,0.7)',
-
-    '& h3': {
-      fontFamily: 'Poppins',
-      color: 'rgba(33,33,44,0.9)',
-      fontWeight: '300',
-    },
-    '& div': {
-      marginRight: 'auto',
-    },
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  hide: {
-    display: 'none',
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  drawerHeader: {
-    display: 'flex',
-    alignItems: 'start',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-  },
-  buttonContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: 20,
-  },
-  btn: {
-    margin: 10,
-  },
-  drawerContent: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: -drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
-  },
-  colors: {
-    width: '100%',
-    height: '80vh',
-    display: 'flex',
-    flexWrap: 'wrap',
-    alignItems: '',
-    justifyContent: 'flex-start',
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  isFull: {
-    padding: 20,
-    color: 'red',
-    fontWeight: 'bold',
-    letterSpacing: '3px',
-  },
-  link: {
-    color: 'white',
-    textDecoration: 'none',
-  },
-});
+// const useStyles =
 
 class NewPaletteForm extends Component {
   constructor(props) {
@@ -238,19 +133,24 @@ class NewPaletteForm extends Component {
               className={clsx(classes.menuButton, open && classes.hide)}>
               <MenuIcon />
             </IconButton>
-            <h3>Create A Palette</h3>
-            <div>
-              <Button variant='contained' color='secondary'>
-                <Link className={classes.link} to='/'>
-                  Go Back
-                </Link>
-              </Button>
-              <Button
-                variant='outlined'
-                color='primary'
-                onClick={this.handleDialogOpen}>
-                Save Palette
-              </Button>
+            <div className={classes.appBarContainer}>
+              <h3>Create A Palette</h3>
+              <section>
+                <Button
+                  variant='contained'
+                  color='secondary'
+                  className={classes.btn}>
+                  <Link className={classes.link} to='/'>
+                    Go Back
+                  </Link>
+                </Button>
+                <Button
+                  variant='outlined'
+                  color='primary'
+                  onClick={this.handleDialogOpen}>
+                  Save Palette
+                </Button>
+              </section>
             </div>
           </Toolbar>
         </AppBar>
@@ -313,7 +213,7 @@ class NewPaletteForm extends Component {
                 type='submit'
                 variant='contained'
                 color='primary'
-                disabled={this.state.palette.length > 20 ? true : false}
+                disabled={this.state.palette.length > 19 ? true : false}
                 style={{
                   backgroundColor: this.state.pickedColor,
                   color: fontColorHelper(this.state.pickedColor),
@@ -322,7 +222,7 @@ class NewPaletteForm extends Component {
                 Add Color
               </Button>
               <div
-                hidden={this.state.palette.length > 20 ? false : true}
+                hidden={this.state.palette.length > 19 ? false : true}
                 className={classes.isFull}>
                 The Palette is Full
               </div>
