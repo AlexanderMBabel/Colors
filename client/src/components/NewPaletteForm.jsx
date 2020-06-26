@@ -17,6 +17,8 @@ import { randomColor } from '../utils/randomColor';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { ChromePicker } from 'react-color';
 import NewColorBox from './NewColorBox';
+import AddPaletteDialog from './AddPaletteDialog';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 290;
 
@@ -114,12 +116,23 @@ const useStyles = (theme) => ({
     alignItems: 'center',
     marginTop: 20,
   },
+  isFull: {
+    padding: 20,
+    color: 'red',
+    fontWeight: 'bold',
+    letterSpacing: '3px',
+  },
+  link: {
+    color: 'white',
+    textDecoration: 'none',
+  },
 });
 
 class NewPaletteForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      dialogOpen: false,
       open: true,
       pickedColor: '#ffffff',
       colorName: '',
@@ -163,6 +176,8 @@ class NewPaletteForm extends Component {
     };
     this.setState((prevState) => ({
       palette: [...prevState.palette, newColor],
+      colorName: '',
+      pickedColor: '#ffffff',
     }));
   };
   pickRandomColor = () => {
@@ -186,6 +201,20 @@ class NewPaletteForm extends Component {
     palette.pop(index);
     this.setState({
       palette,
+    });
+  };
+  handleDialogOpen = () => {
+    this.setState({
+      dialogOpen: true,
+    });
+  };
+  handleDialogClose = (paletteInfo) => {
+    this.props.savePalette({
+      ...paletteInfo,
+      colors: this.state.palette,
+    });
+    this.setState({
+      dialogOpen: false,
     });
   };
   render() {
@@ -212,9 +241,14 @@ class NewPaletteForm extends Component {
             <h3>Create A Palette</h3>
             <div>
               <Button variant='contained' color='secondary'>
-                Go Back
+                <Link className={classes.link} to='/'>
+                  Go Back
+                </Link>
               </Button>
-              <Button variant='outlined' color='primary'>
+              <Button
+                variant='outlined'
+                color='primary'
+                onClick={this.handleDialogOpen}>
                 Save Palette
               </Button>
             </div>
@@ -279,6 +313,7 @@ class NewPaletteForm extends Component {
                 type='submit'
                 variant='contained'
                 color='primary'
+                disabled={this.state.palette.length > 20 ? true : false}
                 style={{
                   backgroundColor: this.state.pickedColor,
                   color: fontColorHelper(this.state.pickedColor),
@@ -286,6 +321,11 @@ class NewPaletteForm extends Component {
                 }}>
                 Add Color
               </Button>
+              <div
+                hidden={this.state.palette.length > 20 ? false : true}
+                className={classes.isFull}>
+                The Palette is Full
+              </div>
             </ValidatorForm>
           </div>
         </Drawer>
@@ -293,6 +333,10 @@ class NewPaletteForm extends Component {
           className={clsx(classes.content, {
             [classes.contentShift]: open,
           })}>
+          <AddPaletteDialog
+            open={this.state.dialogOpen}
+            onClose={this.handleDialogClose}
+          />
           <div className={classes.drawerHeader} />
           <div className={classes.colors}>
             {this.state.palette.map((color, index) => (
