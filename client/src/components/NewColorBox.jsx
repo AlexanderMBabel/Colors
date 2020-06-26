@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { FaTrashAlt } from 'react-icons/fa';
 import IconButton from '@material-ui/core/IconButton';
 import { fontColorHelper } from '../utils/fontColorHelper';
+import { SortableElement } from 'react-sortable-hoc';
 const styles = {
   colorBox: {
     background: (props) => props.color.color,
@@ -26,7 +27,7 @@ const styles = {
   },
 };
 
-const NewColorBox = ({ classes, color, remove }) => {
+const NewColorBox = SortableElement(({ classes, color, remove }) => {
   const handleRemove = () => {
     remove(color.color);
   };
@@ -40,6 +41,6 @@ const NewColorBox = ({ classes, color, remove }) => {
       </div>
     </div>
   );
-};
+});
 
 export default withStyles(styles)(NewColorBox);

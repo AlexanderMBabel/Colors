@@ -16,10 +16,12 @@ import { fontColorHelper } from '../utils/fontColorHelper';
 import { randomColor } from '../utils/randomColor';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { ChromePicker } from 'react-color';
-import NewColorBox from './NewColorBox';
+
 import AddPaletteDialog from './AddPaletteDialog';
 import { Link } from 'react-router-dom';
+import { arrayMove } from 'react-sortable-hoc';
 import useStyles from '../styles/AddPaletteForm.styles.js';
+import DraggableColorList from './DraggableColorList';
 
 class NewPaletteForm extends Component {
   constructor(props) {
@@ -91,7 +93,8 @@ class NewPaletteForm extends Component {
   removeFromPalette = (color) => {
     let palette = [...this.state.palette];
     let index = palette.findIndex((colorInfo) => colorInfo.color === color);
-    palette.pop(index);
+    console.log(index);
+    palette.splice(index, 1);
     this.setState({
       palette,
     });
@@ -109,6 +112,12 @@ class NewPaletteForm extends Component {
     this.setState({
       dialogOpen: false,
     });
+  };
+  /**changes palette array to reflect changes made by draging and dropping */
+  onSortEnd = ({ oldIndex, newIndex }) => {
+    this.setState(({ palette }) => ({
+      palette: arrayMove(palette, oldIndex, newIndex),
+    }));
   };
   render() {
     const { classes, theme } = this.props;
@@ -238,13 +247,12 @@ class NewPaletteForm extends Component {
           />
           <div className={classes.drawerHeader} />
           <div className={classes.colors}>
-            {this.state.palette.map((color, index) => (
-              <NewColorBox
-                color={color}
-                key={color}
-                remove={this.removeFromPalette}
-              />
-            ))}
+            <DraggableColorList
+              onSortEnd={this.onSortEnd}
+              colors={this.state.palette}
+              remove={this.removeFromPalette}
+              axis='xy'
+            />
           </div>
         </main>
       </div>
