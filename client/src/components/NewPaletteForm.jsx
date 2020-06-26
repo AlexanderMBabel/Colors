@@ -104,7 +104,12 @@ class NewPaletteForm extends Component {
       dialogOpen: true,
     });
   };
-  handleDialogClose = (paletteInfo) => {
+  handleDialogClose = () => {
+    this.setState({
+      dialogOpen: false,
+    });
+  };
+  handleDialogSubmit = (paletteInfo) => {
     this.props.savePalette({
       ...paletteInfo,
       colors: this.state.palette,
@@ -244,6 +249,7 @@ class NewPaletteForm extends Component {
             paletteNames={this.props.paletteNames}
             open={this.state.dialogOpen}
             onClose={this.handleDialogClose}
+            onSubmit={this.handleDialogSubmit}
           />
           <div className={classes.drawerHeader} />
           <div className={classes.colors}>
