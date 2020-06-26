@@ -21,8 +21,6 @@ import AddPaletteDialog from './AddPaletteDialog';
 import { Link } from 'react-router-dom';
 import useStyles from '../styles/AddPaletteForm.styles.js';
 
-// const useStyles =
-
 class NewPaletteForm extends Component {
   constructor(props) {
     super(props);
@@ -234,6 +232,7 @@ class NewPaletteForm extends Component {
             [classes.contentShift]: open,
           })}>
           <AddPaletteDialog
+            paletteNames={this.props.paletteNames}
             open={this.state.dialogOpen}
             onClose={this.handleDialogClose}
           />

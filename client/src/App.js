@@ -22,6 +22,9 @@ class App extends Component {
       palettes: [...prevState.palettes, palette],
     }));
   };
+  getPaletteNames = () => {
+    return this.state.palettes.map((palette) => palette.paletteName);
+  };
   render() {
     return (
       <div className='App'>
@@ -29,7 +32,12 @@ class App extends Component {
           <Route
             exact
             path='/new'
-            render={() => <NewPaletteForm savePalette={this.savePalette} />}
+            render={() => (
+              <NewPaletteForm
+                savePalette={this.savePalette}
+                paletteNames={this.getPaletteNames()}
+              />
+            )}
           />
           <Route
             exact

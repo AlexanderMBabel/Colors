@@ -1,19 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from '@material-ui/core/TextField';
+
 import Picker from 'emoji-picker-react';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { useStyles } from '../styles/AddPaletteDialog.styles.js';
 
-const AddPaletteDialog = ({ onClose, open }) => {
+const AddPaletteDialog = ({ onClose, open, paletteNames }) => {
   const [paletteName, setPaletteName] = useState('');
   const [emoji, setEmoji] = useState(null);
   const classes = useStyles();
+
+  /** create custom validations */
+  useEffect(() => {
+    ValidatorForm.addValidationRule('isPaletteNameUnique', (value) => {
+      if (paletteNames.indexOf(value) === -1) {
+        return true;
+      }
+      return false;
+    });
+  }, [paletteNames]);
+
+  /** format paletteName tobe suitable for an id */
   const sanitizeName = (name) => {
     return name.toLowerCase().replace(' ', '-');
   };
+
+  /** create paletteInfo obj and pass it into onClose:in NewPaletteForm */
   const handleClose = () => {
     let paletteInfo = {
       paletteName,
@@ -22,6 +37,8 @@ const AddPaletteDialog = ({ onClose, open }) => {
     };
     onClose(paletteInfo);
   };
+
+  /** Set emoji state when an emoji is clicked in Picker */
   const onEmojiClick = (e, emojiObject) => {
     setEmoji(emojiObject);
   };
@@ -33,26 +50,29 @@ const AddPaletteDialog = ({ onClose, open }) => {
       <DialogTitle className={classes.title} id='dialog-title'>
         Save Palette
       </DialogTitle>
-      <form onSubmit={handleClose} className={classes.form}>
-        <TextField
-          required
+      <ValidatorForm onSubmit={handleClose} className={classes.form}>
+        <TextValidator
           label='Palette Name'
-          defaultValue='My Palette Name'
           type='text'
           value={paletteName}
           onChange={(e) => setPaletteName(e.target.value)}
           className={classes.name}
+          validators={['required', 'isPaletteNameUnique']}
+          errorMessages={[
+            'Palette name Required',
+            'Palette name already taken',
+          ]}
         />
         <p className={classes.symbol}>{emoji && emoji.emoji}</p>
         <Picker onEmojiClick={onEmojiClick} />
         <Button
-          onClick={handleClose}
+          type='submit'
           variant='outlined'
           color='primary'
           className={classes.name}>
           Save
         </Button>
-      </form>
+      </ValidatorForm>
     </Dialog>
   );
 };
