@@ -35,6 +35,17 @@ class App extends Component {
       JSON.stringify(this.state.palettes)
     );
   };
+  removePalettes = (id) => {
+    let palettes = [...this.state.palettes];
+    let index = palettes.findIndex((p) => p.id === id);
+    palettes.splice(index, 1);
+    this.setState(
+      {
+        palettes,
+      },
+      this.syncLocalStorage
+    );
+  };
   render() {
     return (
       <div className='App'>
@@ -52,7 +63,12 @@ class App extends Component {
           <Route
             exact
             path='/'
-            render={() => <PaletteList palettes={this.state.palettes} />}
+            render={() => (
+              <PaletteList
+                palettes={this.state.palettes}
+                removePalettes={this.removePalettes}
+              />
+            )}
           />
           <Route
             exact

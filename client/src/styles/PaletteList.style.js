@@ -5,11 +5,14 @@ export default {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    // justifyContent: 'center',
-    background: 'url(Tumbleweed.jpg)',
-    backgroundSize: '100%',
+    justifyContent: 'flex-start',
+    backgroundColfor: 'blue',
+    backgroundImage: 'url(Tumbleweed.jpg)',
+    backgroundSize: 'cover',
     backgroundAttachment: 'fixed',
     backgroundRepeat: 'no-repeat',
+    overflowY: 'scroll',
+    overflowX: 'hidden',
   },
 
   palettes: {

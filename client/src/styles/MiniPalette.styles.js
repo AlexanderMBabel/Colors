@@ -6,12 +6,22 @@ export default {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 250,
-    height: 200,
+    width: 200,
+    height: 150,
     boxShadow: '0 1px 5px rgba(33,33,40,0.6)',
     margin: 20,
-    textDecoration: 'none',
+
     background: 'white',
+    position: 'relative',
+    cursor: 'pointer',
+    '&:hover section': {
+      opacity: '1',
+    },
+  },
+  link: {
+    textDecoration: 'none',
+    width: '100%',
+    height: '100%',
   },
   colors: {
     borderRadius: 5,
@@ -32,7 +42,7 @@ export default {
     justifyContent: 'space-between',
     alignItems: 'center',
 
-    fontSize: 16,
+    fontSize: 14,
     padding: 0,
     margin: 0,
     '& p': {
@@ -41,6 +51,21 @@ export default {
       marginTop: 5,
       marginBottom: 0,
       color: '#333333',
+    },
+  },
+  remove: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    background: 'rgba(240,10,0,0.7)',
+    color: '#cccccc',
+    opacity: 0,
+    padding: 10,
+    zIndex: 20,
+    transition: 'all 0.5s ease-in-out',
+    '& :hover': {
+      filter: 'brightness(1.4)',
+      // color: 'white',
     },
   },
 };

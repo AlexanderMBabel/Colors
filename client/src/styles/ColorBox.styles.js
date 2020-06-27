@@ -1,5 +1,5 @@
 import { fontColorHelper } from '../utils/fontColorHelper';
-
+import sizes from './sizes.js';
 export default {
   container: {
     height: (props) => (props.single ? '50%' : '25%'),
@@ -13,6 +13,22 @@ export default {
     backgroundColor: (props) => props.background,
     '&:hover Button': {
       opacity: 1,
+    },
+    [sizes.down('lg')]: {
+      width: '25%',
+      height: (props) => (props.single ? '35.5%' : '20%'),
+    },
+    [sizes.down('md')]: {
+      width: '33%',
+      height: (props) => (props.single ? '29%' : '14.5%'),
+    },
+    [sizes.down('sm')]: {
+      width: '50%',
+      height: (props) => (props.single ? '20%' : '10%'),
+    },
+    [sizes.down('xs')]: {
+      width: '100%',
+      height: (props) => (props.single ? '10%' : '5%'),
     },
   },
   name: {
