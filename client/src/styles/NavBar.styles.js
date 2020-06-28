@@ -1,3 +1,4 @@
+import sizes from './sizes.js';
 export default {
   NavBar: {
     display: 'flex',
@@ -21,17 +22,35 @@ export default {
       fontWeight: 'bold',
       fontSize: 18,
     },
+    [sizes.down('sm')]: {
+      '& a': {
+        fontSize: 14,
+      },
+    },
   },
   sliderContainer: {
     padding: 10,
     display: 'flex',
     alignItems: 'center',
     width: 350,
+    [sizes.down('md')]: {
+      width: 310,
+    },
+    [sizes.down('xs')]: {
+      width: 200,
+      flexDirection: 'column',
+    },
   },
   slider: {
     width: 340,
     margin: '0 10px',
     display: 'inline-block',
+    [sizes.down('md')]: {
+      width: 275,
+    },
+    [sizes.down('xs')]: {
+      width: 175,
+    },
   },
   levelContainer: {
     display: 'flex',
@@ -41,6 +60,9 @@ export default {
   level: {
     fontSize: 14,
     paddingLeft: 4,
+    [sizes.down('sm')]: {
+      fontSize: 12,
+    },
   },
   rightSide: {
     marginRight: '1rem',

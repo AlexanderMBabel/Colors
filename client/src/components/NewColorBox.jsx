@@ -2,30 +2,10 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { FaTrashAlt } from 'react-icons/fa';
 import IconButton from '@material-ui/core/IconButton';
-import { fontColorHelper } from '../utils/fontColorHelper';
+import { Delete } from '@material-ui/icons';
+
 import { SortableElement } from 'react-sortable-hoc';
-const styles = {
-  colorBox: {
-    background: (props) => props.color.color,
-    width: '20%',
-    height: '25%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-  },
-  info: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  name: {
-    color: (props) => fontColorHelper(props.color.color),
-    padding: 10,
-  },
-  remove: {
-    color: (props) => fontColorHelper(props.color.color),
-  },
-};
+import styles from '../styles/NewColorBox.styles.js';
 
 const NewColorBox = SortableElement(({ classes, color, remove }) => {
   const handleRemove = () => {
@@ -35,9 +15,13 @@ const NewColorBox = SortableElement(({ classes, color, remove }) => {
     <div className={classes.colorBox}>
       <div className={classes.info}>
         <div className={classes.name}>{color.name}</div>
-        <IconButton className={classes.remove} onClick={handleRemove}>
-          <FaTrashAlt />
+        <IconButton
+          className={classes.remove}
+          onClick={handleRemove}
+          aria-label='Remove'>
+          <Delete />
         </IconButton>
+        {/* <FaTrashAlt onClick={handleRemove} className={classes.remove} /> */}
       </div>
     </div>
   );

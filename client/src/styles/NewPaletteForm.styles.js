@@ -1,3 +1,16 @@
+import sizes from './sizes.js';
+
+// function getDrawerWidth() {
+//   let width = window.innerWidth;
+//   if (width < 576) {
+//     return 150;
+//   }
+//   if (width < 992) {
+//     return 225;
+//   }
+//   return 290;
+// }
+
 const drawerWidth = 290;
 
 export default (theme) => ({
@@ -5,6 +18,7 @@ export default (theme) => ({
     display: 'flex',
   },
   appBar: {
+    width: '100%',
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -28,9 +42,12 @@ export default (theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
+  toolbar: {
+    width: '100%',
+  },
   appBarContainer: {
     display: 'flex',
-    width: '75vw',
+    width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 10,
@@ -60,9 +77,26 @@ export default (theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     padding: 20,
+    [sizes.down('sm')]: {
+      padding: 5,
+    },
   },
   btn: {
-    margin: 10,
+    fontSize: '0.8rem',
+    margin: 4,
+
+    [sizes.down('sm')]: {
+      margin: 1,
+      padding: 0,
+    },
+  },
+  title: {
+    [sizes.down('sm')]: {
+      fontSize: 12,
+      letterSpacing: 0.2,
+      margin: 0,
+      padding: 0,
+    },
   },
   drawerContent: {
     display: 'flex',
@@ -78,6 +112,7 @@ export default (theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: -drawerWidth,
+    padding: 0,
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
@@ -96,6 +131,7 @@ export default (theme) => ({
     // justifyContent: 'flex-start',
     alignContent: 'flex-start',
     marginTop: 12,
+    margin: 0,
     overflow: 'hidden',
   },
   form: {

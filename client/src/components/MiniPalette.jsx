@@ -25,10 +25,7 @@ function MiniPalette({ classes, palette, removePalettes }) {
           <p>{emoji}</p>
         </footer>
       </Link>
-      <section
-        className='remove'
-        className={classes.remove}
-        onClick={handleRemove}>
+      <section className={classes.remove} onClick={handleRemove}>
         <FaTrash />
       </section>
     </div>

@@ -91,7 +91,7 @@ class NavBar extends Component {
           {this.props.type === 'palette' && (
             <div className={classes.sliderContainer}>
               <p className={classes.levelContainer}>
-                <span className='level-label'>level:</span>
+                <span className={classes.level}>level:</span>
                 <span className={classes.level}>{this.props.level}</span>
               </p>
               <PrettoSlider

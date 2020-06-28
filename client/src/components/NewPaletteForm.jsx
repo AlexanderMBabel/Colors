@@ -20,8 +20,9 @@ import { ChromePicker } from 'react-color';
 import AddPaletteDialog from './AddPaletteDialog';
 import { Link } from 'react-router-dom';
 import { arrayMove } from 'react-sortable-hoc';
-import useStyles from '../styles/AddPaletteForm.styles.js';
+import useStyles from '../styles/NewPaletteForm.styles.js';
 import DraggableColorList from './DraggableColorList';
+import { ntc } from '../utils/ntc';
 
 class NewPaletteForm extends Component {
   constructor(props) {
@@ -74,6 +75,31 @@ class NewPaletteForm extends Component {
       colorName: '',
       pickedColor: '#ffffff',
     }));
+  };
+  /** fill palette with random colors name automatically giving with ntc library */
+  fillRandom = () => {
+    let randomPalette = [];
+    for (let i = 0; i < 20; i++) {
+      let color = randomColor();
+      let n_match = ntc.name(color);
+      let name = n_match[1];
+      /** all color names must be unique */
+      while (randomPalette.findIndex((c) => c.name === name) !== -1) {
+        color = randomColor();
+        n_match = ntc.name(color);
+        name = n_match[1];
+      }
+
+      let newColor = {
+        color,
+        name,
+      };
+      randomPalette.push(newColor);
+    }
+
+    this.setState({
+      palette: randomPalette,
+    });
   };
   pickRandomColor = () => {
     this.setState({
@@ -136,7 +162,7 @@ class NewPaletteForm extends Component {
           className={clsx(classes.appBar, {
             [classes.appBarShift]: open,
           })}>
-          <Toolbar>
+          <Toolbar className={classes.toolbar}>
             <IconButton
               color='secondary'
               aria-label='open drawer'
@@ -146,21 +172,22 @@ class NewPaletteForm extends Component {
               <MenuIcon />
             </IconButton>
             <div className={classes.appBarContainer}>
-              <h3>Create A Palette</h3>
+              <h3 className={classes.title}>Create A Palette</h3>
               <section>
                 <Button
                   variant='contained'
                   color='secondary'
                   className={classes.btn}>
                   <Link className={classes.link} to='/'>
-                    Go Back
+                    Back
                   </Link>
                 </Button>
                 <Button
                   variant='outlined'
                   color='primary'
+                  className={classes.btn}
                   onClick={this.handleDialogOpen}>
-                  Save Palette
+                  Save
                 </Button>
               </section>
             </div>
@@ -202,6 +229,14 @@ class NewPaletteForm extends Component {
                 color='secondary'
                 className={classes.btn}>
                 Random
+              </Button>
+              <Button
+                onClick={this.fillRandom}
+                size='small'
+                variant='outlined'
+                color='primary'
+                className={classes.btn}>
+                Fill With Random
               </Button>
             </div>
             <ChromePicker
@@ -254,6 +289,7 @@ class NewPaletteForm extends Component {
           <div className={classes.drawerHeader} />
           <div className={classes.colors}>
             <DraggableColorList
+              distance='3'
               onSortEnd={this.onSortEnd}
               colors={this.state.palette}
               remove={this.removeFromPalette}
