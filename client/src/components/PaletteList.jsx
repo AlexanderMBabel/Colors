@@ -34,7 +34,7 @@ class PaletteList extends Component {
     this.setState({ dialogOpen: false });
   };
   render() {
-    const { palettes, classes, removePalettes } = this.props;
+    const { palettes, classes } = this.props;
 
     return (
       <div className={classes.paletteList}>

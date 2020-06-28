@@ -84,7 +84,10 @@ class NewPaletteForm extends Component {
       let n_match = ntc.name(color);
       let name = n_match[1];
       /** all color names must be unique */
-      while (randomPalette.findIndex((c) => c.name === name) !== -1) {
+      function colorMatch(c) {
+        return c.name === name;
+      }
+      while (randomPalette.findIndex((c) => colorMatch(c)) !== -1) {
         color = randomColor();
         n_match = ntc.name(color);
         name = n_match[1];

@@ -106,7 +106,7 @@ export default (theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    // padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -131,7 +131,7 @@ export default (theme) => ({
     // justifyContent: 'flex-start',
     alignContent: 'flex-start',
     marginTop: 12,
-    margin: 0,
+
     overflow: 'hidden',
   },
   form: {

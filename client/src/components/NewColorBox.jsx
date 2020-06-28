@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { FaTrashAlt } from 'react-icons/fa';
+
 import IconButton from '@material-ui/core/IconButton';
 import { Delete } from '@material-ui/icons';
 
